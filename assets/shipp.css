@@ -158,6 +158,7 @@ label {
 .shipp-hero {
   padding: 24px 0 26px;
 }
+
 .shipp-eyebrow {
   margin-bottom: 10px;
   color: var(--shipp-teal);
@@ -166,6 +167,7 @@ label {
   text-transform: uppercase;
   letter-spacing: 0.11em;
 }
+
 .shipp-hero h1 {
   max-width: 740px;
   margin: 0;
@@ -173,6 +175,7 @@ label {
   line-height: 1.14 !important;
   letter-spacing: -0.04em;
 }
+
 .shipp-hero p {
   max-width: 650px;
   margin: 12px 0 0;
@@ -212,9 +215,9 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
 }
 
 /* Inputs */
-div[data-baseweb="input"] > div,
-div[data-baseweb="select"] > div,
-div[data-baseweb="textarea"] > div {
+div[data-baseweb="input"]>div,
+div[data-baseweb="select"]>div,
+div[data-baseweb="textarea"]>div {
   min-height: 46px;
   border-color: var(--shipp-border) !important;
   border-radius: 10px !important;
@@ -222,9 +225,9 @@ div[data-baseweb="textarea"] > div {
   box-shadow: none !important;
 }
 
-div[data-baseweb="input"] > div:focus-within,
-div[data-baseweb="select"] > div:focus-within,
-div[data-baseweb="textarea"] > div:focus-within {
+div[data-baseweb="input"]>div:focus-within,
+div[data-baseweb="select"]>div:focus-within,
+div[data-baseweb="textarea"]>div:focus-within {
   border-color: var(--shipp-teal) !important;
   box-shadow: 0 0 0 3px rgba(15, 102, 104, 0.09) !important;
 }
@@ -248,10 +251,12 @@ div[data-baseweb="textarea"] > div:focus-within {
   font-weight: 700 !important;
   box-shadow: none !important;
 }
+
 [data-testid="stBaseButton-primary"]:hover {
   background: var(--shipp-teal-dark) !important;
   border-color: var(--shipp-teal-dark) !important;
 }
+
 [data-testid="stBaseButton-secondary"] {
   min-height: 42px;
   border: 1px solid var(--shipp-border-strong) !important;
@@ -261,10 +266,12 @@ div[data-baseweb="textarea"] > div:focus-within {
   font-weight: 650 !important;
   box-shadow: none !important;
 }
+
 [data-testid="stBaseButton-secondary"]:hover {
   border-color: var(--shipp-teal) !important;
   background: var(--shipp-teal-soft) !important;
 }
+
 [data-testid^="stBaseButton-"]:disabled {
   opacity: 0.45;
   cursor: not-allowed;
@@ -354,16 +361,19 @@ div[data-baseweb="textarea"] > div:focus-within {
   font-size: 0.82rem;
   font-weight: 600;
 }
+
 [data-testid="stVerticalBlockBorderWrapper"]:has(.listing-card-copy) {
   border: 1px solid var(--shipp-border) !important;
   border-radius: 16px !important;
   box-shadow: var(--shipp-shadow-sm);
   transition: border-color 140ms ease, box-shadow 140ms ease;
 }
+
 [data-testid="stVerticalBlockBorderWrapper"]:has(.listing-card-copy):hover {
   border-color: var(--shipp-border-strong) !important;
   box-shadow: var(--shipp-shadow-md);
 }
+
 [data-testid="stVerticalBlockBorderWrapper"]:has(.listing-card-copy) [data-testid="stImage"] img {
   display: block;
   width: 100%;
@@ -372,6 +382,7 @@ div[data-baseweb="textarea"] > div:focus-within {
   border-radius: 12px;
   background: #f0f5f3;
 }
+
 .listing-card-copy {
   display: flex;
   flex-direction: column;
@@ -379,18 +390,21 @@ div[data-baseweb="textarea"] > div:focus-within {
   min-height: 186px;
   padding: 3px 1px 8px;
 }
+
 .listing-card-copy .product-title {
   min-height: 1.4em;
   line-height: 1.3 !important;
   font-weight: 750 !important;
   margin: 0 !important;
 }
+
 .listing-card-copy .product-area {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 0.81rem;
 }
+
 .listing-description {
   display: -webkit-box;
   overflow: hidden;
@@ -401,6 +415,7 @@ div[data-baseweb="textarea"] > div:focus-within {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
+
 .listing-live-badge {
   display: inline-flex;
   align-items: center;
@@ -409,6 +424,7 @@ div[data-baseweb="textarea"] > div:focus-within {
   font-size: 0.74rem;
   font-weight: 700;
 }
+
 .listing-live-badge::before {
   content: "";
   width: 7px;
@@ -416,6 +432,7 @@ div[data-baseweb="textarea"] > div:focus-within {
   border-radius: 50%;
   background: var(--shipp-success);
 }
+
 [data-testid="stDialog"] [data-testid="stImage"] img {
   max-height: 520px;
   width: auto;
@@ -424,6 +441,7 @@ div[data-baseweb="textarea"] > div:focus-within {
   object-fit: contain;
   border-radius: 10px;
 }
+
 [data-testid="stDialog"] [data-testid="stHorizontalBlock"] [data-testid="stImage"] img {
   height: 72px;
   max-height: 72px;
@@ -596,15 +614,26 @@ div[data-baseweb="textarea"] > div:focus-within {
     min-height: auto;
   }
 
-  .stButton > button,
-  [data-testid="stFormSubmitButton"] > button {
+  .stButton>button,
+  [data-testid="stFormSubmitButton"]>button {
     width: 100%;
     min-height: 48px;
   }
 
-  div[data-baseweb="input"] > div,
-  div[data-baseweb="select"] > div,
-  div[data-baseweb="textarea"] > div {
+  div[data-baseweb="input"]>div,
+  div[data-baseweb="select"]>div,
+  div[data-baseweb="textarea"]>div {
     min-height: 48px;
   }
+}
+
+/* Startup-blocker badge: Lakebase or configuration not ready */
+.shipp-status-offline {
+  border-color: #e7b8b0;
+  color: #a3402f;
+}
+
+.shipp-status-dot-offline {
+  background: #c8553d;
+  box-shadow: 0 0 0 3px rgba(200, 85, 61, 0.14);
 }
