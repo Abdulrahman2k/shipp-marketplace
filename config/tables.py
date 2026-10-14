@@ -330,10 +330,8 @@ PIPELINE_RUN_LOG = (
 #
 # This is a Databricks AI Search resource, NOT a Delta table.
 
-
-VS_INDEX_NAME = (
-    f"{CATALOG}.{GOLD_SCHEMA}.gold_listing_search_docs_index_v2"
-)
+# Inside config/tables.py
+VS_INDEX_NAME = "bootcamp_students.shipp_gold.gold_listing_search_docs_index_v3"
 
 # =============================================================================
 # Convenience registry — Delta tables only
