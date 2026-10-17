@@ -1,4 +1,7 @@
 """SHIPP requester page — verified user, needs, matching, and AI saves."""
+
+import os
+from ui.location_geocoding import reverse_geocode_pickup_area
 from __future__ import annotations
 from ui.legacy_core import *  # noqa: F403,F401
 from services.identity_service import require_role
