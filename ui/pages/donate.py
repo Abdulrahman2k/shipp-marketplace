@@ -282,14 +282,9 @@ def render_donor():
                     latitude=donor_lat,
                     longitude=donor_lon,
                     available_until=available_until,
+                    initial_status="DRAFT",
                 )
-                st.session_state["donor_pin_confirmed"] = False
-                st.session_state["donor_map_version"] = (
-                    st.session_state.get("donor_map_version", 0) + 1
-                )
-                st.session_state.last_created_listing_id = (
-                    listing_id
-                )
+                st.session_state.last_created_listing_id = listing_id
 
                 # ---------------------------------------------
                 # 8. SAVE PHOTOS TO UNITY CATALOG VOLUME
@@ -300,21 +295,28 @@ def render_donor():
                         uploaded_files,
                     )
 
-                    st.success(
-                        f"Your item is live with "
-                        f"{len(saved_images)} photo"
-                        f"{'s' if len(saved_images) != 1 else ''}."
+                    if not saved_images:
+                        raise RuntimeError("No item photos were stored.")
+                    marketplace.publish_listing_with_images(
+                        listing_id=listing_id,
+                        donor_id=donor_id,
                     )
-
                 except Exception as exc:
-                    st.code(str(exc))
-
-                    st.warning(
-                        "The listing was published, but the "
-                        "photos could not be stored. "
-                        "Check the App service-principal "
-                        "access to the listing image Volume."
+                    st.error(
+                        "Your item was saved as a draft, not published. "
+                        "Photo storage or publication needs attention."
                     )
+                    st.code(str(exc))
+                    st.stop()
+
+                st.session_state["donor_pin_confirmed"] = False
+                st.session_state["donor_map_version"] = (
+                    st.session_state.get("donor_map_version", 0) + 1
+                )
+                st.success(
+                    f"Your item is live with {len(saved_images)} photo"
+                    f"{'s' if len(saved_images) != 1 else ''}."
+                )
 
                 # ---------------------------------------------
                 # 9. VERIFY LISTING WRITE
