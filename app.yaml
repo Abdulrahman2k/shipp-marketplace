@@ -21,6 +21,11 @@ env:
 
   - name: SHIPP_LISTING_IMAGE_VOLUME
     value: /Volumes/bootcamp_students/shipp_bronze/listing_images
+
+  # Provision a Databricks App Secret resource with resource key "ors-api-key".
+  # Do not put the secret itself into this file.
+  - name: ORS_API_KEY
+    valueFrom: ors-api-key
     
   - name: SHIPP_DEPLOYMENT_TARGET
     value: databricks_app
