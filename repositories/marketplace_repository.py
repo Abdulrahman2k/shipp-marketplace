@@ -77,7 +77,10 @@ class MarketplaceRepo:
         latitude: float,
         longitude: float,
         available_until: date,
+        initial_status: str = "AVAILABLE",
     ) -> str:
+        if initial_status not in {"AVAILABLE", "DRAFT"}:
+            raise ValueError("Initial listing status must be AVAILABLE or DRAFT.")
         listing_id = str(uuid4())
         available_from = datetime.now(timezone.utc)
         available_until_ts = datetime.combine(
@@ -103,7 +106,7 @@ class MarketplaceRepo:
                     available_until,
                     status
                 )
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 'AVAILABLE')
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """,
                 (
                     listing_id,
@@ -117,10 +120,43 @@ class MarketplaceRepo:
                     longitude,
                     available_from,
                     available_until_ts,
+                    initial_status,
                 ),
             )
 
         return listing_id
+
+    def publish_listing_with_images(self, *, listing_id: str, donor_id: str) -> None:
+        """Publish a donor-owned DRAFT only after photo metadata exists.
+
+        This is a second-phase operational write. A failed image upload leaves
+        the draft out of public catalog and Gold candidate eligibility.
+        """
+        if not listing_id.strip() or not donor_id.strip():
+            raise ValueError("Listing and donor IDs are required.")
+
+        with self._connect() as conn, conn.cursor() as cur:
+            cur.execute(
+                f"""
+                UPDATE {self._schema}.listings AS l
+                SET status = 'AVAILABLE', updated_at = CURRENT_TIMESTAMP
+                WHERE l.listing_id = %s
+                  AND l.donor_id = %s
+                  AND l.status = 'DRAFT'
+                  AND EXISTS (
+                      SELECT 1
+                      FROM {self._schema}.listing_files AS f
+                      WHERE f.listing_id = l.listing_id
+                        AND f.file_type LIKE 'image/%%'
+                  )
+                RETURNING l.listing_id
+                """,
+                (listing_id, donor_id),
+            )
+            if cur.fetchone() is None:
+                raise RuntimeError(
+                    "Listing was not published: draft, ownership or stored photos missing."
+                )
 
     def save_listing_images(
         self,
